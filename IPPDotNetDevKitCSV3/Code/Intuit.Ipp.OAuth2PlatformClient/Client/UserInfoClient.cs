@@ -36,12 +36,7 @@ namespace Intuit.Ipp.OAuth2PlatformClient
         /// <param name="innerHttpMessageHandler">innerHttpMessageHandler</param>
         public UserInfoClient(string endpoint, HttpMessageHandler innerHttpMessageHandler)
         {
-            if (OAuth2Client.AdvancedLoggerEnabled == false)
-            {
-                //Intialize Logger
-                OAuth2Client.AdvancedLogger = LogHelper.GetAdvancedLogging(enableSerilogRequestResponseLoggingForDebug: false, enableSerilogRequestResponseLoggingForTrace: false, enableSerilogRequestResponseLoggingForConsole: false, enableSerilogRequestResponseLoggingForFile: false, serviceRequestLoggingLocationForFile: System.IO.Path.GetTempPath());
-            }
-
+           
             if (endpoint == null) throw new ArgumentNullException(nameof(endpoint));
             if (innerHttpMessageHandler == null) throw new ArgumentNullException(nameof(innerHttpMessageHandler));
 
@@ -55,11 +50,7 @@ namespace Intuit.Ipp.OAuth2PlatformClient
                 new MediaTypeWithQualityHeaderValue("application/json"));
             _client.DefaultRequestHeaders.Add("Connection", "close");
 
-            if (OAuth2Client.AdvancedLoggerEnabled != false)
-            {
-                OAuth2Client.AdvancedLogger.Log("UserInfo request initiated");
-                OAuth2Client.AdvancedLogger.Log("Request url- " + endpoint);
-            }
+          
         }
 
         /// <summary>
@@ -90,15 +81,7 @@ namespace Intuit.Ipp.OAuth2PlatformClient
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            if (OAuth2Client.AdvancedLoggerEnabled != false)
-            {
-                OAuth2Client.AdvancedLogger.Log("Request headers- ");
-                OAuth2Client.AdvancedLogger.Log("Authorization Header: " + request.Headers.Authorization.ToString());
-
-                OAuth2Client.AdvancedLogger.Log("Accept header: " + "application/json");
-            }
-
-
+           
             HttpResponseMessage response;
             try
             {
@@ -131,40 +114,19 @@ namespace Intuit.Ipp.OAuth2PlatformClient
 
                     if (errorDetail != null && errorDetail != "")
                     {
-                        if (OAuth2Client.AdvancedLoggerEnabled != false)
-                        {
-                            if (OAuth2Client.ShowInfoLogs == true)//log just intuit_tid for info logging mode
-                                OAuth2Client.AdvancedLogger.Log("Response Intuit_Tid header - " + intuit_tid + ", Response: Status Code- " + response.StatusCode);
-                            else
-                                OAuth2Client.AdvancedLogger.Log("Response Intuit_Tid header - " + intuit_tid + ", Response: Status Code- " + response.StatusCode + ", Error Details- " + response.ReasonPhrase + ": " + errorDetail);
-
-                        }
+                       
                         return new UserInfoResponse(response.StatusCode, response.ReasonPhrase + ": " + errorDetail);
 
                     }
                     else
                     {
-                        if (OAuth2Client.AdvancedLoggerEnabled != false)
-                        {
-
-                            if (OAuth2Client.ShowInfoLogs == true)//log just intuit_tid for info logging mode
-                                OAuth2Client.AdvancedLogger.Log("Response Intuit_Tid header - " + intuit_tid + ", Response: Status Code- " + response.StatusCode);
-                            else
-                                OAuth2Client.AdvancedLogger.Log("Response Intuit_Tid header - " + intuit_tid + ", Response: Status Code- " + response.StatusCode + ", Error Details- " + response.ReasonPhrase);
-
-                        }
+                       
                         return new UserInfoResponse(response.StatusCode, response.ReasonPhrase);
                     }
                 }
 
                 var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                if (OAuth2Client.AdvancedLoggerEnabled != false)
-                {
-                    if (OAuth2Client.ShowInfoLogs == true)//log just intuit_tid for info logging mode
-                        OAuth2Client.AdvancedLogger.Log("Response Intuit_Tid header - " + intuit_tid + ", Response Status Code- " + response.StatusCode);
-                    else
-                        OAuth2Client.AdvancedLogger.Log("Response Intuit_Tid header - " + intuit_tid + ", Response Status Code- " + response.StatusCode + ", Response Body- " + content);
-                }
+              
                 return new UserInfoResponse(content);
             }
             catch (System.Exception ex)

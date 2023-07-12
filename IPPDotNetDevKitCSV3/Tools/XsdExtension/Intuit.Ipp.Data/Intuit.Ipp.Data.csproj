@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net472;net461</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.6.0" />
   </ItemGroup>
 
   <ItemGroup>

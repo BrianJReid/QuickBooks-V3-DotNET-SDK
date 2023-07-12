@@ -11,7 +11,7 @@
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb;.xml</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <NoLogo>true</NoLogo>
     <PackageOutputPath>$(SolutionDir)artifacts\nupkg</PackageOutputPath>
-    <PackageIcon>$(MSBuildThisFileDirectory)logo.png</PackageIcon>
+    
     <OutputPath>$(SolutionDir)artifacts\bin</OutputPath>
     <Copyright>Copyright © 2020 Intuit, Inc.</Copyright>
     <AssemblyVersion>14.6.3.2</AssemblyVersion>
@@ -25,20 +25,7 @@
 
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)' == 'net472'">
-    <DefineConstants>NET472;NETFULL</DefineConstants>
 
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)' == 'net461'">
-    <DefineConstants>NET461;NETFULL</DefineConstants>
-
-  </PropertyGroup>
-
-  <ItemGroup>
-	  
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-  </ItemGroup>
 
 
 

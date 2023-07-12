@@ -38,10 +38,6 @@ namespace Intuit.Ipp.Core
     { 
 
 
-        /// <summary>
-        /// Gets or sets Serilog Request Logging.
-        /// </summary>
-        internal static Diagnostics.AdvancedLogging AdvancedLogging;
     
         /// <summary>
         /// Gets the serializer mechanism using the service context and the depending on the request and response.
@@ -178,44 +174,7 @@ namespace Intuit.Ipp.Core
         }
 
 
-        /// <summary>
-        /// Gets the Request Response Logging mechanism for advanced logging using serilog.
-        /// </summary>
-        /// <param name="serviceContext">The serivce context object.</param>
-        /// <returns>Returns value which specifies the request response logging mechanism.</returns>
-        public static Diagnostics.AdvancedLogging GetAdvancedLogging(ServiceContext serviceContext)
-        {
-            Diagnostics.AdvancedLogging requestLogger;
-            if (serviceContext.IppConfiguration != null &&
-                serviceContext.IppConfiguration.AdvancedLogger != null &&
-                serviceContext.IppConfiguration.AdvancedLogger.RequestAdvancedLog != null)
-            {
-                if (serviceContext.IppConfiguration.AdvancedLogger.RequestAdvancedLog.CustomLogger != null)
-                {
-                    //Use custom logger
-                    requestLogger = new Diagnostics.AdvancedLogging(serviceContext.IppConfiguration.AdvancedLogger.RequestAdvancedLog.CustomLogger);
-                }
-                else
-                {
-                    requestLogger = new Diagnostics.AdvancedLogging(
-                    serviceContext.IppConfiguration.AdvancedLogger.RequestAdvancedLog.EnableSerilogRequestResponseLoggingForDebug,
-                    serviceContext.IppConfiguration.AdvancedLogger.RequestAdvancedLog.EnableSerilogRequestResponseLoggingForTrace,
-                    serviceContext.IppConfiguration.AdvancedLogger.RequestAdvancedLog.EnableSerilogRequestResponseLoggingForConsole,
-                    serviceContext.IppConfiguration.AdvancedLogger.RequestAdvancedLog.EnableSerilogRequestResponseLoggingForFile,
-                    serviceContext.IppConfiguration.AdvancedLogger.RequestAdvancedLog.ServiceRequestLoggingLocationForFile);
-
-                }
-            }
-            else
-            {
-                requestLogger = new Diagnostics.AdvancedLogging(enableSerilogRequestResponseLoggingForDebug: true, enableSerilogRequestResponseLoggingForTrace: true, enableSerilogRequestResponseLoggingForConsole: true, enableSerilogRequestResponseLoggingForFile: false, serviceRequestLoggingLocationForFile: null);
-            }
-
-            return requestLogger;
-        }
-
-
-
+    
         /// <summary>
         /// Checks whether the retry count is less than or equal to zero.
         /// Checks whether the timespan values are zero.

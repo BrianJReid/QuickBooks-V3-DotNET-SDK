@@ -131,7 +131,6 @@ namespace Intuit.Ipp.Core.Rest
         public virtual System.Net.HttpWebRequest PrepareRequest(RequestParameters requestParameters, object requestBody, string oauthRequestUri, bool includeRequestId = true)
         {
             //initialize the Advanced logger
-            CoreHelper.AdvancedLogging = CoreHelper.GetAdvancedLogging(this.serviceContext);
             this.serviceContext.IppConfiguration.Logger.CustomLogger.Log(TraceLevel.Info, "Called PrepareRequest method");
 
             // This step is required since the configuration settings might have been changed.
@@ -256,19 +255,11 @@ namespace Intuit.Ipp.Core.Rest
                             //enabling header logging in Serilogger
                             WebHeaderCollection allHeaders = httpWebRequest.Headers;
 
-                            CoreHelper.AdvancedLogging.Log(" RequestUrl: " + httpWebRequest.RequestUri);
-                            CoreHelper.AdvancedLogging.Log("Logging all headers in the request:");
-
-                            for (int i = 0; i < allHeaders.Count; i++)
-                            {
-                                CoreHelper.AdvancedLogging.Log(allHeaders.GetKey(i) + "-" + allHeaders[i]);
-                            }
 
 
                             // Log Request Body to a file
                             this.RequestLogging.LogPlatformRequests(" RequestUrl: " + requestEndpoint + ", Request Payload:" + requestXML.ToString(), true);
                             //Log to Serilog
-                            CoreHelper.AdvancedLogging.Log( "Request Payload:" + requestXML.ToString());
 
                             // Use of encoding to get bytes used to write to request stream.
                             UTF8Encoding encoding = new UTF8Encoding();

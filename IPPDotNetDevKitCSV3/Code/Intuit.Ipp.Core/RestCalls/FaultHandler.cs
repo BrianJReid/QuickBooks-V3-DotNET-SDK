@@ -133,7 +133,6 @@ namespace Intuit.Ipp.Core.Rest
                     CoreHelper.GetRequestLogging(this.context).LogPlatformRequests(" Response Intuit_Tid header: " + response_intuit_tid_header + ", Response Payload: " + errorString, false);
 
                     //Log errorstring to Serilog
-                    CoreHelper.AdvancedLogging.Log(" Response Intuit_Tid header: " + response_intuit_tid_header + ", Response Payload: " + errorString);
 
                     if (isIps)
                     {
